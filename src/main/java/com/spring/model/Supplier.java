@@ -2,35 +2,78 @@ package com.spring.model;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
+
+import java.util.Set;
+
+
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+
+import javax.persistence.FetchType;
+
 import javax.persistence.Id;
 
+import javax.persistence.OneToMany;
+
+
+
 import org.springframework.stereotype.Component;
+
+
+
 @Component
+
 @Entity
-public class Supplier implements Serializable{
+
+
+
+
+
+public class Supplier implements Serializable
+
+{
+
 	
-	
-	
-	private static final long serialVersionUID = 1L;
-		@Id
-		@GeneratedValue
-		private int Sid;
-		private String SupplierName;
-		public int getSid() {
-			return Sid;
-		}
-		public void setSid(int sid) {
-			Sid = sid;
-		}
-		public String getSupplierName() {
-			return SupplierName;
-		}
-		public void setSupplierName(String supplierName) {
-			SupplierName = supplierName;
-		}
-		
-		
+
+	@Id
+
+	private int sid;
+
+	private String sname;
+
+	public int getSid() {
+
+		return sid;
+
 	}
 
+	public void setSid(int sid) {
+
+		this.sid = sid;
+
+	}
+
+	public String getSname() {
+
+		return sname;
+
+	}
+
+	public void setSname(String sname) {
+
+		this.sname = sname;
+
+	}
+
+	
+
+ @OneToMany(targetEntity=Product.class,fetch=FetchType.EAGER, mappedBy="supplier")
+
+	private Set<Product> product=new HashSet<Product>(0);
+
+	
+
+
+
+}

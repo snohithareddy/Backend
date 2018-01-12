@@ -16,12 +16,20 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.spring.dao.CategoryDao;
-import com.spring.dao.SupplierDao;
-import com.spring.dao.UserDao;
-import com.spring.daoimpl.CategoryDaoImpl;
-import com.spring.daoimpl.SupplierDaoImpl;
-import com.spring.daoimpl.UserDaoImpl;
+import com.spring.dao.CartDAO;
+import com.spring.dao.CategoryDAO;
+import com.spring.dao.ProductDAO;
+import com.spring.dao.SupplierDAO;
+import com.spring.dao.UserDAO;
+import com.spring.daoimpl.CartDAOImpl;
+import com.spring.daoimpl.CategoryDAOImpl;
+import com.spring.daoimpl.ProductDAOImpl;
+import com.spring.daoimpl.SupplierDAOImpl;
+import com.spring.daoimpl.UserDAOImpl;
+import com.spring.model.Category;
+import com.spring.model.Product;
+import com.spring.model.Supplier;
+import com.spring.model.User;
 
 @Configuration
 @ComponentScan("com.spring")
@@ -59,9 +67,9 @@ public class hiberconfig {
 
 			properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
 
-			properties.put("hibernate.hbm2ddl.auto", "create");
+			//properties.put("hibernate.hbm2ddl.auto", "create");
 
-			//properties.put("hibernate.hbm2ddl.auto", "update");
+			properties.put("hibernate.hbm2ddl.auto", "update");
 
 			System.out.println("Hibernate Properties");
 
@@ -75,25 +83,27 @@ public class hiberconfig {
 
 		@Autowired
 
-		@Bean(name = "sessionFactory")
+	    @Bean(name="sessionFactory")
 
-		public SessionFactory getSessionFactory(DataSource dataSource) {
+	    public SessionFactory getHibersession(DataSource datasource)
 
-			LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
+	    {
 
-			sessionBuilder.addProperties(getHibernateProperties());
+	    	LocalSessionFactoryBuilder lsfb= new LocalSessionFactoryBuilder(datasource);
 
-			sessionBuilder.scanPackages("com");
+	    	lsfb.addProperties(getHibernateProperties());
 
-			System.out.println("Session");
+	    	lsfb.addAnnotatedClass(User.class);// mapping classes mapping model objects
 
-			
+	    	lsfb.addAnnotatedClass(Supplier.class);
 
-			return sessionBuilder.buildSessionFactory();
+	    	lsfb.addAnnotatedClass(Category.class);
 
-			
+	    	lsfb.addAnnotatedClass(Product.class);
 
-		}
+	    	return lsfb.buildSessionFactory();
+
+	    }
 
 
 
@@ -112,22 +122,38 @@ public class hiberconfig {
 		}	
 	@Autowired
 	@Bean(name="userDao")
-	public UserDao getUserDao(SessionFactory sessionFactory)
+	public UserDAO getUserDao(SessionFactory sessionFactory)
 	{
-		return new UserDaoImpl(sessionFactory);
+		return new UserDAOImpl(sessionFactory);
 	}
 	@Autowired
 	@Bean(name="categoryDao")
-	public CategoryDao getCategoryDao(SessionFactory sessionFactory)
+	public CategoryDAO getCategoryDao(SessionFactory sessionFactory)
 	{
-		return new CategoryDaoImpl(sessionFactory);
+		return new CategoryDAOImpl(sessionFactory);
 	}
 	@Autowired
 	@Bean(name="supplierDao")
-	public SupplierDao getSupplierDao(SessionFactory sessionFactory)
+	public SupplierDAO getSupplierDao(SessionFactory sessionFactory)
 	{
-		return new SupplierDaoImpl(sessionFactory);
+		return new SupplierDAOImpl(sessionFactory);
 	}
+	@Autowired
+	@Bean(name="productDao")
+	public ProductDAO getProductDao(SessionFactory sessionFactory)
+	{
+		return new ProductDAOImpl(sessionFactory);
+	}
+	@Autowired
+	@Bean(name="cartDao")
+	public CartDAO getcartDao(SessionFactory sessionFactory)
+	{
+		return new CartDAOImpl(sessionFactory);
+	}
+
+
+	
+	
 	
 }
 
