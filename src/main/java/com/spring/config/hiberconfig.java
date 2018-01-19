@@ -18,15 +18,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.spring.dao.CartDAO;
 import com.spring.dao.CategoryDAO;
+import com.spring.dao.OrdersDAO;
 import com.spring.dao.ProductDAO;
 import com.spring.dao.SupplierDAO;
 import com.spring.dao.UserDAO;
 import com.spring.daoimpl.CartDAOImpl;
 import com.spring.daoimpl.CategoryDAOImpl;
+import com.spring.daoimpl.OrdersDAOImpl;
 import com.spring.daoimpl.ProductDAOImpl;
 import com.spring.daoimpl.SupplierDAOImpl;
 import com.spring.daoimpl.UserDAOImpl;
+import com.spring.model.Cart;
 import com.spring.model.Category;
+import com.spring.model.Orders;
 import com.spring.model.Product;
 import com.spring.model.Supplier;
 import com.spring.model.User;
@@ -100,6 +104,10 @@ public class hiberconfig {
 	    	lsfb.addAnnotatedClass(Category.class);
 
 	    	lsfb.addAnnotatedClass(Product.class);
+	    	lsfb.addAnnotatedClass(Cart.class);
+	    	lsfb.addAnnotatedClass(Orders.class);
+
+
 
 	    	return lsfb.buildSessionFactory();
 
@@ -121,36 +129,42 @@ public class hiberconfig {
 
 		}	
 	@Autowired
-	@Bean(name="userDao")
+	@Bean(name="userDAO")
 	public UserDAO getUserDao(SessionFactory sessionFactory)
 	{
 		return new UserDAOImpl(sessionFactory);
 	}
 	@Autowired
-	@Bean(name="categoryDao")
+	@Bean(name="categoryDAO")
 	public CategoryDAO getCategoryDao(SessionFactory sessionFactory)
 	{
 		return new CategoryDAOImpl(sessionFactory);
 	}
 	@Autowired
-	@Bean(name="supplierDao")
+	@Bean(name="supplierDAO")
 	public SupplierDAO getSupplierDao(SessionFactory sessionFactory)
 	{
 		return new SupplierDAOImpl(sessionFactory);
 	}
 	@Autowired
-	@Bean(name="productDao")
+	@Bean(name="productDAO")
 	public ProductDAO getProductDao(SessionFactory sessionFactory)
 	{
 		return new ProductDAOImpl(sessionFactory);
 	}
 	@Autowired
-	@Bean(name="cartDao")
+	@Bean(name="cartDAO")
 	public CartDAO getcartDao(SessionFactory sessionFactory)
 	{
 		return new CartDAOImpl(sessionFactory);
 	}
 
+	@Autowired
+	@Bean(name="ordersDAO")
+	public OrdersDAO getordersDao(SessionFactory sessionFactory)
+	{
+		return new OrdersDAOImpl(sessionFactory);
+	}
 
 	
 	

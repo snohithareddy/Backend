@@ -4,13 +4,17 @@ package com.spring.daoimpl;
 
 
 
-import org.hibernate.HibernateException;
+import org.hibernate.Criteria;
 
 import org.hibernate.Session;
 
 import org.hibernate.SessionFactory;
 
-import  org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.criterion.Projections;
+
+import org.hibernate.criterion.Restrictions;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Repository;
 
@@ -22,82 +26,82 @@ import com.spring.model.User;
 
 
 
+
+
 @Repository
 
 public class UserDAOImpl implements UserDAO
 
 {
 
-	@Autowired
+	public  UserDAOImpl(){}
 
-	SessionFactory sessionFactory;
+ @Autowired
+
+ SessionFactory sessionFactory;
+
+ 
+
+ @Autowired
+
+ public UserDAOImpl(SessionFactory sessionFactory)
+
+ {
+
+	 super();
+
+	 this.sessionFactory=sessionFactory;
+
+	 
+
+ }
 
 
 
-	public UserDAOImpl(){}
+ public boolean insertUser(User user)
+
+ {
+
+	Session session= sessionFactory.openSession(); 
+
+	 
+
+	session.beginTransaction();
+
+	session.save(user);
+
+	session.getTransaction().commit();
+
+	return true;
+
+ }
 
 
 
-	public UserDAOImpl(SessionFactory sessionFactory) {
+@SuppressWarnings("deprecation")
+
+@Override
+
+public User getUserId(String email) {
 
 
 
-     this.sessionFactory=sessionFactory;
+	Criteria c=sessionFactory.openSession().createCriteria(User.class);
 
-	}
-
-
-
-
-
-	//@Transactional
-
-	public void insertUser(User user)
-
-	{
-
-		Session session=sessionFactory.openSession();
-
-		session.beginTransaction();
-
-		session.saveOrUpdate(user);
-
-		session.getTransaction().commit();
-
-	}
-
-	public User findUserByEmail(String email)
-
-	{
-
-		Session session= sessionFactory.openSession();
-
-		User u=null;
-
-		try{
-
-			session.beginTransaction();
-
-			u=session.get(User.class,email);
-
-			session.getTransaction().commit();
-
-		}
-
-		catch(HibernateException e)
-
-		{
-
-			e.printStackTrace();
-
-		}
-
-		return u;
-
-	}
+	c.add(Restrictions.eq("email", email));
 
 	
 
+	return  (User) c.uniqueResult();
 
+	
+
+	
+
+               
+
+}
+
+ 
 
 }

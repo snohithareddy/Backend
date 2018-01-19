@@ -3,17 +3,14 @@ package com.spring.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.stereotype.Component;
 @Entity
-
-@Table
-
-@Component
+@Table(name="Orders_details")
 public class Orders {
 	@Id
+	@GeneratedValue
 
 	private String orderId;
 
