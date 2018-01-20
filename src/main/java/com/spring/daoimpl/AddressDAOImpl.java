@@ -2,25 +2,52 @@ package com.spring.daoimpl;
 
 import java.util.List;
 
+
+
 import javax.persistence.Query;
+
 import javax.persistence.criteria.CriteriaBuilder;
+
 import javax.persistence.criteria.CriteriaQuery;
+
 import javax.persistence.criteria.ParameterExpression;
+
 import javax.persistence.criteria.Root;
 
+import javax.transaction.Transactional;
+
+
+
 import org.hibernate.Session;
+
 import org.hibernate.SessionFactory;
+
+
+
 import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+
 
 import com.spring.dao.AddressDAO;
+
 import com.spring.model.Address;
+
+
+
 @Repository
-public class AddressDAOImpl implements AddressDAO {
+
+public class AddressDAOImpl implements AddressDAO
+
+{
+
 	
+
 private static Logger log = LoggerFactory.getLogger(AddressDAOImpl.class);
 
 
@@ -41,19 +68,7 @@ private static Logger log = LoggerFactory.getLogger(AddressDAOImpl.class);
 
 		this.sessionFactory = sessionFactory;
 
-	}
-
-
-
-		
-
-		
-
-
-
-		
-
-		
+	}	
 
 
 
@@ -165,7 +180,7 @@ private static Logger log = LoggerFactory.getLogger(AddressDAOImpl.class);
 
 	@Transactional
 
-	
+	@Override
 
 	public Address getAddressById(int addressId) {
 
@@ -189,7 +204,7 @@ private static Logger log = LoggerFactory.getLogger(AddressDAOImpl.class);
 
 	@Transactional
 
-	
+	@Override
 
 	public Address getAddressOfUser(int userId) {
 
@@ -202,5 +217,9 @@ private static Logger log = LoggerFactory.getLogger(AddressDAOImpl.class);
 		session.close();
 
 		return address;
-}
+
+	}
+
+
+
 }

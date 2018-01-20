@@ -1,10 +1,19 @@
 package com.spring.dao;
 
+
+
 import java.util.List;
+
+
 
 import com.spring.model.Address;
 
-public interface AddressDAO {
+
+
+public interface AddressDAO
+
+{
+
 public boolean saveOrUpdate(Address address);
 
 	
@@ -28,3 +37,4 @@ public boolean saveOrUpdate(Address address);
 
 
 }
+
