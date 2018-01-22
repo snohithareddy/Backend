@@ -29,6 +29,15 @@ public class Cart {
 	private String status;
 
 	private int userId;
+	private String imagName;
+
+	public String getImagName() {
+		return imagName;
+	}
+
+	public void setImagName(String imagName) {
+		this.imagName = imagName;
+	}
 
 	public int getCid() {
 		return cid;

@@ -48,7 +48,7 @@ public class ProductDAOImpl implements ProductDAO
 
 		session.beginTransaction();
 
-		session.persist(product);
+		session.save(product);
 
 		session.getTransaction().commit();
 

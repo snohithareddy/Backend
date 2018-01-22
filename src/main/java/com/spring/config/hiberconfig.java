@@ -17,29 +17,9 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.spring.dao.AddressDAO;
-import com.spring.dao.CartDAO;
-import com.spring.dao.CategoryDAO;
-import com.spring.dao.OrdersDAO;
-import com.spring.dao.PaymentDAO;
-import com.spring.dao.ProductDAO;
-import com.spring.dao.SupplierDAO;
-import com.spring.dao.UserDAO;
-import com.spring.daoimpl.AddressDAOImpl;
-import com.spring.daoimpl.CartDAOImpl;
-import com.spring.daoimpl.CategoryDAOImpl;
-import com.spring.daoimpl.OrdersDAOImpl;
-import com.spring.daoimpl.PaymentDAOImpl;
-import com.spring.daoimpl.ProductDAOImpl;
-import com.spring.daoimpl.SupplierDAOImpl;
-import com.spring.daoimpl.UserDAOImpl;
-import com.spring.model.Address;
-import com.spring.model.Cart;
-import com.spring.model.Category;
-import com.spring.model.Orders;
-import com.spring.model.Payment;
-import com.spring.model.Product;
-import com.spring.model.Supplier;
-import com.spring.model.User;
+import com.spring.dao.*;
+import com.spring.daoimpl.*;
+import com.spring.model.*;
 
 @Configuration
 @ComponentScan("com.spring")
@@ -111,7 +91,7 @@ public class hiberconfig {
 
 	    	lsfb.addAnnotatedClass(Product.class);
 	    	lsfb.addAnnotatedClass(Cart.class);
-	    	lsfb.addAnnotatedClass(Orders.class);
+	    	lsfb.addAnnotatedClass(Order.class);
 	    	lsfb.addAnnotatedClass(Payment.class);
 	    	lsfb.addAnnotatedClass(Address.class);
 
@@ -168,10 +148,10 @@ public class hiberconfig {
 	}
 
 	@Autowired
-	@Bean(name="ordersDAO")
-	public OrdersDAO getordersDao(SessionFactory sessionFactory)
+	@Bean(name="orderDAO")
+	public OrderDAO getordersDao(SessionFactory sessionFactory)
 	{
-		return new OrdersDAOImpl(sessionFactory);
+		return new OrderDAOImpl(sessionFactory);
 	}
 	@Autowired
 	@Bean(name="addressDAO")

@@ -1,19 +1,43 @@
+
 package com.spring.daoimpl;
+
+
 
 import java.util.List;
 
+
+
+import javax.transaction.Transactional;
+
+
+
 import org.hibernate.Session;
+
 import org.hibernate.SessionFactory;
+
 import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.dao.OrdersDAO;
-import com.spring.model.Orders;
+import org.springframework.stereotype.Repository;
 
-public class OrdersDAOImpl implements OrdersDAO{
-private static Logger log = LoggerFactory.getLogger(OrdersDAOImpl.class);
+
+
+import com.spring.dao.OrderDAO;
+
+import com.spring.model.Order;
+
+
+
+@Repository
+
+public class OrderDAOImpl implements OrderDAO {
+
+
+
+private static Logger log = LoggerFactory.getLogger(OrderDAOImpl.class);
 
 	
 
@@ -27,7 +51,7 @@ private static Logger log = LoggerFactory.getLogger(OrdersDAOImpl.class);
 
 	
 
-public OrdersDAOImpl(SessionFactory sessionFactory) {
+public OrderDAOImpl(SessionFactory sessionFactory) {
 
 		
 
@@ -57,7 +81,7 @@ public OrdersDAOImpl(SessionFactory sessionFactory) {
 
 			
 
-			Object object = session.load(Orders.class, orderId);
+			Object object = session.load(Order.class, orderId);
 
 			
 
@@ -89,11 +113,11 @@ public OrdersDAOImpl(SessionFactory sessionFactory) {
 
 	@Transactional
 
-	public List<Orders> getAllOrdersOfUser(int userId) {
+	public List<Order> getAllOrdersOfUser(int userId) {
 
 		
 
-		List<Orders> orderList =  sessionFactory.getCurrentSession().createQuery("from Orders where userId = :userId and orderStatus = 'PROCESSED'",Orders.class).setParameter("userId", userId).list();
+		List<Order> orderList =  sessionFactory.getCurrentSession().createQuery("from Order where userId = :userId and orderStatus = 'PROCESSED'",Order.class).setParameter("userId", userId).list();
 
 		return orderList;
 
@@ -103,9 +127,9 @@ public OrdersDAOImpl(SessionFactory sessionFactory) {
 
 	@Transactional
 
-	
 
-	public boolean saveOrUpdate(Orders order) {
+
+	public boolean saveOrUpdate(Order order) {
 
 		// TODO Auto-generated method stub
 
@@ -130,11 +154,12 @@ public OrdersDAOImpl(SessionFactory sessionFactory) {
 	@Transactional
 
 
-	public Orders getOrderById(int orderId) {
+
+	public Order getOrderById(int orderId) {
 
 		// TODO Auto-generated method stub
 
-		Orders order= (Orders) sessionFactory.getCurrentSession().createQuery("from Order where id = :orderId")
+		Order order= (Order) sessionFactory.getCurrentSession().createQuery("from Order where id = :orderId")
 
 				.setParameter("orderId", orderId).uniqueResult();
 

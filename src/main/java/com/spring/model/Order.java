@@ -1,21 +1,33 @@
 package com.spring.model;
 
+
+
 import java.sql.Timestamp;
 
+
+
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
+
 import javax.persistence.Id;
+
 import javax.persistence.Table;
+
+
+
 @Entity
-@Table(name="Orders_details")
-public class Orders {
-	@Id
-	@GeneratedValue
 
-	private String orderId;
+@Table(name="Order_details")
 
+public class Order
+
+{
 	
-
+	
+	
+	@Id
+	private String orderId;
 	private int userId;
 
 	
@@ -61,6 +73,19 @@ public class Orders {
 	
 
 	private String updatedBy;
+	private String imagName;
+
+
+
+	public String getImagName() {
+		return imagName;
+	}
+
+
+
+	public void setImagName(String imagName) {
+		this.imagName = imagName;
+	}
 
 
 
